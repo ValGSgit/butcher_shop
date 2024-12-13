@@ -1,0 +1,31 @@
+Fails: 
+
+-> Makefile cmd cmd out : pipefd is still open in both of the children
+-> executable with no permissions should print an adequate error
+-> In case of SIGPIPE you dont close one of the fds probably from Infile (e.g. cat | ls)
+-> Make sure that the last executed cmd or program returns the correct code
+	(only for cmd) permission denied: 126 		cmd not found: 127 	failed open: 1
+-> At no permission in outfile you get an invalid close
+
+-> Big tip: Create for every command a child process AND DO BONUS!!!!!!!!!
+-> 
+
+BONUS: 
+
+each cmd a child process
+
+PARENT
+-
+-pipe and fork in a loop extract lastpid
+---- cmd1 -> reads from infile redirects to pipe 1
+-	|
+-	|
+-----cmd2 -> reads from pipe 1 redirects to pipe 2
+-	|
+-	|
+-----cmd3 -> reads from pipe 2 redirects to outfile
+-
+-	wait to get exitcode from last PID
+-	wait first for lastpid
+	extract exit code 
+-	wait for null
